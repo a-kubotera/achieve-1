@@ -1,5 +1,24 @@
 Rails.application.routes.draw do
 
+#  get 'poemsrails/g'
+
+#  get 'poemsrails/controller'
+
+#  get 'poemsrails/poemsrails'
+
+#  get 'poemsrails/g'
+
+#  get 'poemsrails/controller'
+
+#  get 'poemsrails/poemsrails'
+
+#  get 'poemsrails/g'
+
+#  get 'poemsrails/controller'
+
+#  get 'poemsrails/poemsvrail'
+
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for:users
   resources :blogs, only:[:index, :new, :create, :edit, :update, :destroy] do
     collection do
@@ -20,6 +39,9 @@ Rails.application.routes.draw do
   if Rails.env.development?
   mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
+
+  resources :poems, only: [:index, :show]
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

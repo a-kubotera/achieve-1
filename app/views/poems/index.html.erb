@@ -1,0 +1,6 @@
+<% @poems.each do |poem| %>
+<span style="margin-right: 2em;"></span>
+  <%= poem.title %>
+  <!-- <%= poem.content %> -->
+  <%= link_to "詳細を表示する", poem %>
+<% end %>

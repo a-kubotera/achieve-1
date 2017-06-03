@@ -11,6 +11,7 @@ Rails.application.configure do
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
+  BetterErrors::Middleware.allow_ip! "10.0.2.2"
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send.
