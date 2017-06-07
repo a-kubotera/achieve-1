@@ -8,6 +8,8 @@
                 <h4><strong><%=blog.title %></strong></h4>
                 <p><%=blog.content %></p>
                 <p><%=blog.user.name %></p>
+                <p><%=profile_img(blog.user) %></p>
+
                 <%=link_to "編集", edit_blog_path(blog.id), class: 'btn btn-default btn-sm btn-success' %>
                 <%=link_to "削除", blog_path(blog.id), method: :delete, data: {confirm: '本当に削除していいですか？'}, class: 'btn btn-default btn-sm btn-danger' %>
             </div>
@@ -16,4 +18,4 @@
     </div>
     <div id="page-top-index-btn" class="page-top-index-btn">
         <p><a class="move-page-top" id="move-page-top">▲</a></p>
-    </div> 
+    </div>
