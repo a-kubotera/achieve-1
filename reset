@@ -1,0 +1,13 @@
+=== DATABASE_URL
+Plan:        Hobby-dev
+Status:      Available
+Connections: 1/20
+PG Version:  9.6.1
+Created:     2017-04-30 08:34 UTC
+Data Size:   7.5 MB
+Tables:      5
+Rows:        15/10000 (In compliance)
+Fork/Follow: Unsupported
+Rollback:    Unsupported
+Add-on:      postgresql-adjacent-33718
+
