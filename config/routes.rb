@@ -11,6 +11,13 @@ Rails.application.routes.draw do
     end
   end
 
+#routing for comment
+  resources :blogs do
+  resources :comments
+  post :confirm, on: :collection
+  end
+#comment routing end
+
     resources :contacts, only:[:new, :create] do
       collection do
       post :confirm
