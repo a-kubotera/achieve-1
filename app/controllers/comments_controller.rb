@@ -35,15 +35,13 @@ end
 #編集追加
 def update
   @comment = Comment.find(params[:id])
-
     respond_to do |format|
       if @comment.update(comment_params)
-    #format.html {redirect_to blogs_path(@blog)}
-     format.html {redirect_to blogs_path(@blog), notice: "コメントを編集しました！"}
-  else
-    render 'edit'
-  end
-end
+        format.html {redirect_to blog_path(@comment.blog), notice:"コメントを編集しました！"}
+      else
+        render 'edit'
+      end
+    end
 end
 
 
