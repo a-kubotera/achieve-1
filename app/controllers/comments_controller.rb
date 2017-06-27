@@ -29,16 +29,21 @@ class CommentsController < ApplicationController
   end
 #追加終了
 def edit
+  @comment = Comment.find(params[:id])
 end
 
 #編集追加
 def update
   @comment = Comment.find(params[:id])
-  if @comment.update
-     redirect_to blogs_path(@blog), notice: "コメントを編集しました！"
+
+    respond_to do |format|
+      if @comment.update(comment_params)
+    #format.html {redirect_to blogs_path(@blog)}
+     format.html {redirect_to blogs_path(@blog), notice: "コメントを編集しました！"}
   else
     render 'edit'
   end
+end
 end
 
 
