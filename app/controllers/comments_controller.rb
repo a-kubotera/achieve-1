@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
     respond_to do |format|
       if @comment.save
         format.html { redirect_to blog_path(@blog)}
-          flash[:notice] = "コメントを投稿しました。"
+          flash.now[:notice] = "コメントを投稿しました。"
         # JS形式でレスポンスを返します。
         format.js { render :index }
       else
@@ -23,7 +23,7 @@ class CommentsController < ApplicationController
     @comment.destroy
     respond_to do |format|
         format.html {redirect_to blogs_path(@blog)}
-          flash[:notice] = "コメントを削除しました！"
+          flash.now[:notice] = "コメントを削除しました！"
         format.js { render :index }
     end
   end
@@ -35,14 +35,15 @@ end
 #編集追加
 def update
   @comment = Comment.find(params[:id])
-    respond_to do |format|
+    #respond_to do |format|
       if @comment.update(comment_params)
-        format.html {redirect_to blog_path(@comment.blog), notice:"コメントを編集しました！"}
+        #format.html {
+        redirect_to blog_path(@comment.blog), notice:"コメントを編集しました！"
       else
         render 'edit'
       end
     end
-end
+#end
 
 
 #def update
