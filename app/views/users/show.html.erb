@@ -1,0 +1,19 @@
+<div class="container">
+  <h2>ユーザー詳細</h2>
+    <div class="container-child col-md-2 col-sm-4 col-xs-6 ">
+
+  <%= render 'follow_user_form', user: @user %>
+
+
+<h2>フォローユーザ一覧</h2>
+  <p><% @user.followed_users.each do |user| %></p>
+    <%= render 'follow_user_form', user: user %>
+<% end %>
+
+<h2>フォロワーユーザ一覧</h2>
+  <p>  <% @user.followers.each do |follow| %> </p>
+    <%= render 'follow_user_form', user: follow %>
+<% end %>
+
+  </div>
+</div>
