@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  
   get 'relationships/create'
 
   get 'relationships/destroy'
@@ -29,6 +30,10 @@ Rails.application.routes.draw do
       collection do
       post :confirm
     end
+   end
+
+   resources :conversations do
+     resources :messages
    end
 
   root 'top#index'
