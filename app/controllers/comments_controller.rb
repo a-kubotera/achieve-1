@@ -7,15 +7,19 @@ class CommentsController < ApplicationController
     # クライアント要求に応じてフォーマットを変更
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to blog_path(@blog)}
-          flash.now[:notice] = "コメントを投稿しました。"
-        # JS形式でレスポンスを返します。
         format.js { render :index }
+        #unless
+        # @comment.blog.user_id == current_user.id
+
         unless @comment.blog.user_id == current_user.id
-          Pusher.trigger("user_#{@comment.blog.user_id}_channel", 'comment_created', {
-            message: 'あなたの作成したブログにコメントが付きました'
+                  Pusher.trigger("user_#{@comment.blog.user_id}_channel", 'comment_created', {
+                    message: 'あなたの作成したブログにコメントが付きました'
           })
         end
+        #format.html { redirect_to blog_path(@blog)}
+        #  flash.now[:notice] = "A comment was submitted"
+        # JS形式でレスポンスを返します。
+
       else
         format.html { render :new }
       end
@@ -28,7 +32,7 @@ class CommentsController < ApplicationController
     @comment.destroy
     respond_to do |format|
         format.html {redirect_to blogs_path(@blog)}
-          flash.now[:notice] = "コメントを削除しました！"
+          flash.now[:notice] = "A comment was eliminated!"
         format.js { render :index }
     end
   end
@@ -43,7 +47,7 @@ def update
     #respond_to do |format|
       if @comment.update(comment_params)
         #format.html {
-        redirect_to blog_path(@comment.blog), notice:"コメントを編集しました！"
+        redirect_to blog_path(@comment.blog), notice:"A comment was modified!"
       else
         render 'edit'
       end
