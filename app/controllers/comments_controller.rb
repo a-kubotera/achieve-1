@@ -4,6 +4,7 @@ class CommentsController < ApplicationController
     # Blogをパラメータの値から探し出し,Blogに紐づくcommentsとしてbuildします。
     @comment = current_user.comments.build(comment_params)
     @blog = @comment.blog
+    @notification = @comment.notifications.build(user_id: @blog.user.id )
     # クライアント要求に応じてフォーマットを変更
     respond_to do |format|
       if @comment.save
@@ -19,7 +20,9 @@ class CommentsController < ApplicationController
         #format.html { redirect_to blog_path(@blog)}
         #  flash.now[:notice] = "A comment was submitted"
         # JS形式でレスポンスを返します。
-
+        Pusher.trigger("user_#{@comment.blog.user_id}_channel", 'notification_created', {
+          unread_counts: Notification.where(user_id: @comment.blog.user.id, read: false).count
+        })
       else
         format.html { render :new }
       end
@@ -32,7 +35,7 @@ class CommentsController < ApplicationController
     @comment.destroy
     respond_to do |format|
         format.html {redirect_to blogs_path(@blog)}
-          flash.now[:notice] = "A comment was eliminated!"
+          flash.now[:notice] = "コメントが削除されました!"
         format.js { render :index }
     end
   end
@@ -47,7 +50,7 @@ def update
     #respond_to do |format|
       if @comment.update(comment_params)
         #format.html {
-        redirect_to blog_path(@comment.blog), notice:"A comment was modified!"
+        redirect_to blog_path(@comment.blog), notice:"コメントが編集されました!"
       else
         render 'edit'
       end

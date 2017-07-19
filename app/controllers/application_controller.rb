@@ -11,9 +11,18 @@ class ApplicationController < ActionController::Base
 
   protected
 
+
+
+
+
     #deviseのストロングパラメーターにカラム追加するメソッドを定義
     def configure_permitted_parameters
       devise_parameter_sanitizer.permit(:sign_up, keys: PERMISSIBLE_ATTRIBUTES)
       devise_parameter_sanitizer.permit(:account_update, keys: PERMISSIBLE_ATTRIBUTES)
+    end
+
+    before_action :current_notifications, if: :signed_in?
+    def current_notifications
+      @notifications_count = Notification.where(user_id: current_user.id).where(read: false).count
     end
 end
