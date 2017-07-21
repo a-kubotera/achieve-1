@@ -1,13 +1,21 @@
-<h2>お知らせ</h2>
+  <section class="title">
+  <h2>お知らせ</h2>
+
+  <section class="notice">
 <ul>
+
   <% @notifications.each do |notification| %>
   <hr>
     <li>
-      <span><%= notification.read %></span>
+      <span><%= read_or_unread(notification.read) %></span>
+
       <p>
         <%= notification.comment.user.try(:name) %>さんが
-        あなたのブログ（<%= link_to "#{notification.comment.blog.title}", blog_path(notification.comment.blog, notification_id: notification.id) %>）にコメントしました。
+        <!--あなたのブログ <%= button_to "#{notification.comment.blog.title}", blog_path(notification.comment.blog, notification_id: notification.id), {method: :get, class: "btn btn-default"} %> にコメントしました。-->
+
+あなたのブログ <%= link_to "#{notification.comment.blog.title}", blog_path(notification.comment.blog, notification_id: notification.id) %> にコメントしました。
       </p>
+        <section class="time">
       <p><%= notification.created_at %></p>
     </li>
   <% end %>

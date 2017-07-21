@@ -25,9 +25,7 @@
   </script>
  <% end %>
 
- <%= link_to notifications_index_path, class: "navbar-brand" do %>
-   <i class="fa fa-bell fa-1x"><span id="unread_count"><%= @notifications_count %></span></i>
- <% end %>
+
 </head>
 <body>
 
@@ -57,6 +55,9 @@
           </ul>
         </li>
         <% if user_signed_in? %>
+        <%= link_to notifications_index_path, class: "navbar-brand" do %>
+          <i class="fa fa-bell fa-1x"><span id="unread_count"><%= @notifications_count %></span></i>
+        <% end %>
           <li><%= link_to 'マイページ', edit_user_registration_path %></li>
           <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
           <% else %>
